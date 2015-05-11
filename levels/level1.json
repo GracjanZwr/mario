@@ -1,0 +1,14 @@
+[
+    { "sprite" : "img/level1/Brick_Block_Big.png", "x" : 0, "y" : 0, "sx" : 0, "sy" : 0, "width" : 150, "height" : 550, "type" : "steel"},
+    { "sprite" : "img/level1/3_Brick_Block.png", "x" : 150, "y" : 500, "sx" : 0, "sy" : 0, "width" : 150, "height" : 50, "type" : "steel"},
+    { "sprite" : "img/level1/Brick_Block.png", "x" : 350, "y" : 370, "sx" : 0, "sy" : 0, "width" : 50, "height" : 50, "type" : "steel"},
+    { "sprite" : "img/level1/Brick_Block.png", "x" : 400, "y" : 350, "sx" : 0, "sy" : 0, "width" : 50, "height" : 50, "type" : "steel"},
+    { "sprite" : "img/level1/flower.png", "x" : 450, "y" : 350, "sx" : 0, "sy" : 50, "width" : 50, "height" : 50, "type" : "mushroom"},
+    { "sprite" : "img/level1/Brick_Block.png", "x" : 500, "y" : 350, "sx" : 0, "sy" : 0, "width" : 50, "height" : 50, "type" : "steel"},
+    
+    { "sprite" : "img/level1/3_Brick_Block.png", "x" : 300, "y" : 500, "sx" : 0, "sy" : 0, "width" : 150, "height" : 50, "type" : "steel"},
+    { "sprite" : "img/level1/3_Brick_Block.png", "x" : 450, "y" : 500, "sx" : 0, "sy" : 0, "width" : 150, "height" : 50, "type" : "steel"},
+    { "sprite" : "img/level1/3_Brick_Block.png", "x" : 700, "y" : 400, "sx" : 0, "sy" : 0, "width" : 150, "height" : 50, "type" : "steel"},
+    { "sprite" : "img/level1/3_Brick_Block.png", "x" : 900, "y" : 300, "sx" : 0, "sy" : 0, "width" : 150, "height" : 50, "type" : "steel"},
+    { "sprite" : "img/level1/3_Brick_Block.png", "x" : 1150, "y" : 300, "sx" : 0, "sy" : 0, "width" : 150, "height" : 50, "type" : "steel"}
+]

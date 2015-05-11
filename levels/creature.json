@@ -1,0 +1,4 @@
+[
+    { "img" : "img/creatures/killer-bee.png", "x" : 900, "y" : 250, "sx" : 0, "sy" : 0, "width" : 40, "height" : 40, "speed" : 2, "distance" : 100},
+    { "img" : "img/creatures/zombie.png", "x" : 1150, "y" : 229, "sx" : 0, "sy" : 0, "width" : 50, "height" : 71, "speed" : 1, "distance" : 100}
+]
