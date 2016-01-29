@@ -14,7 +14,7 @@ $(window).load(function() {
         $(this).slideUp();
         init();
     });
-    
+
     $('.restart').click(function() {
         $(this).slideUp();
         gravity = 0.978;
@@ -24,7 +24,7 @@ $(window).load(function() {
         player.x = player.original_x;
         player.y = player.original_y-150;
         platform_bckg.x = platform_bckg.original_x;
-        
+
         for (var i=0; i < platformBlock.length; i++) {
             platformBlock[i].x = platformBlock[i].original_x;
             platformBlock[i].y = platformBlock[i].original_y;
@@ -65,19 +65,19 @@ function mainLoop() {
     // -------- VARIABLES ADJUSTMENTS + SCROLLING EFFECT ---------
         // scrolling effect
     update();
-    
+
     // -------------------- RENDERING & DRAWING -------------------
-    
+
     // place the rAF *before* the render() to assure as close to
     // 60fps with the setTimeout fallback.
     requestAnimFrame(mainLoop);
-    
+
     render();
 }
 function update() {
     if (!player.dead) {
         // ---------------------  KEYBOARD EVENTS  -----------------------
-        
+
         // Player run Right
         if (keys[39]) {
             player.sy = 0;
@@ -108,14 +108,14 @@ function update() {
             player.sx = 0 ;
         }
         if (!keys[39] && !keys[37])  player.vel_x *= friction;
-        
+
         playerCollisions();
-      
-  } //end of if player is not dead  
+
+  } //end of if player is not dead
     //that mean that everything after } will be executed after player is dead
-  
+
   // ---------------------  LOGIC  -----------------------
-  
+
     platform_bckg.x += -player.vel_x;
     player.y += player.vel_y;
     player.vel_y += gravity;
@@ -145,59 +145,67 @@ function update() {
 
 function playerCollisions() {
         // ---  Player COLLISIONS with Platform Objects
-    for (var i=0; i < platformBlock.length; i++) {
-        if ( player.collision(platformBlock[i]) ) {
-            // colision down
-            if ( player.y + player.height < platformBlock[i].y + player.vel_y )  {
-                player.y = platformBlock[i].y - player.height;
-                player.width = 34;
-                player.vel_y = 0;
-                player.jumps = false;
-                if (firstTime) {
-                    player.sx = 0;
-                    firstTime = false;
+
+          for (var i=0; i < platformBlock.length; i++) {
+            // if( platformBlock[i].type != 'castle') {
+              if ( platformBlock[i].type != 'castle' && player.collision(platformBlock[i]) ) {
+                  // colision down
+                  if ( player.y + player.height < platformBlock[i].y + player.vel_y )  {
+                      player.y = platformBlock[i].y - player.height;
+                      player.width = 34;
+                      player.vel_y = 0;
+                      player.jumps = false;
+                      if (firstTime) {
+                          player.sx = 0;
+                          firstTime = false;
+                      }
+                      if (platformBlock[i].hit && platformBlock[i].type == "mushroom" ) {
+                          platformBlock[i].EATcomeOutFromBlock();
+                      }
+                  }
+                  // colision up
+                  if ( player.y - player.vel_y + gravity > platformBlock[i].y + platformBlock[i].height  )  {
+                      player.y = platformBlock[i].y + platformBlock[i].height;
+                      player.vel_y = 0;
+                      if (!platformBlock[i].specEat && !platformBlock[i].hit && platformBlock[i].type != "steel" ) {
+                          platformBlock[i].comeOutFromBlock();
+                      }
+                  }
+
+                  if ( player.y + player.height > platformBlock[i].y ) {
+
+                      // colision right
+                      if ( player.x + player.width < platformBlock[i].x + player.vel_x ) {
+                          player.x = platformBlock[i].x - player.width;
+                          player.vel_x = 0;
+                          if ( platformBlock[i].hit && platformBlock[i].type != "steel" && player.y + player.height <= platformBlock[i].y + platformBlock[i].height/2 ) {
+                              platformBlock[i].EATcomeOutFromBlock();
+                          }
+                      }
+                      // colision left
+                      if ( player.x - player.vel_x > platformBlock[i].x + platformBlock[i].width ) {
+                          player.x = platformBlock[i].x + platformBlock[i].width;
+                          player.vel_x = 0;
+                          if (platformBlock[i].hit && platformBlock[i].type != "steel" && player.y + player.height <= platformBlock[i].y + platformBlock[i].height/2 ) {
+                              platformBlock[i].EATcomeOutFromBlock();
+                          }
+                      }
+                  }
+              }
+              if ( platformBlock[i].type == 'castle' && player.collision(platformBlock[i]) ){
+                // colision up
+                if (keys[38] || keys[32]) {
+                    player.level_finished();
                 }
-                if (platformBlock[i].hit && platformBlock[i].type != "steel" ) {
-                    platformBlock[i].EATcomeOutFromBlock();
-                }
+              }
             }
-            // colision up
-            if ( player.y - player.vel_y + gravity > platformBlock[i].y + platformBlock[i].height  )  {
-                player.y = platformBlock[i].y + platformBlock[i].height;
-                player.vel_y = 0;
-                if (!platformBlock[i].specEat && !platformBlock[i].hit && platformBlock[i].type != "steel" ) {
-                    platformBlock[i].comeOutFromBlock();
-                }
-            }
-            
-            if ( player.y + player.height > platformBlock[i].y ) {
-                
-                // colision right
-                if ( player.x + player.width < platformBlock[i].x + player.vel_x ) {
-                    player.x = platformBlock[i].x - player.width;
-                    player.vel_x = 0;
-                    if ( platformBlock[i].hit && platformBlock[i].type != "steel" && player.y + player.height <= platformBlock[i].y + platformBlock[i].height/2 ) {
-                        platformBlock[i].EATcomeOutFromBlock();
-                    }
-                }
-                // colision left
-                if ( player.x - player.vel_x > platformBlock[i].x + platformBlock[i].width ) {
-                    player.x = platformBlock[i].x + platformBlock[i].width;
-                    player.vel_x = 0;
-                    if (platformBlock[i].hit && platformBlock[i].type != "steel" && player.y + player.height <= platformBlock[i].y + platformBlock[i].height/2 ) {
-                        platformBlock[i].EATcomeOutFromBlock();
-                    }
-                }
-            }
-        }
-    }
          // ---  Player collision with Creature Objects
     for (var i=0; i < creature.length; i++) {
         if (player.collision(creature[i]) &&  player.y + player.height < creature[i].y + player.vel_y)  {
              player.y = creature[i].y - player.height;
              player.jumpAttack();
              creature[i].die();
-        } 
+        }
         if ( player.collision(creature[i]) && player.x < creature[i].x + player.vel_x && creature[i].y < player.y + player.height) {
             player.die();
         }
@@ -212,65 +220,65 @@ function playerCollisions() {
 }
 
 function render() {
-    
+
     ctx.clearRect(0,0,canvas.width,600);
-    
+
     ctx.drawImage(platform_bckg.img,platform_bckg.x,platform_bckg.y);
-    
+
     for (var i=0; i < platformBlock.length; i++) {
         ctx.drawImage(
-            platformBlock[i].sprite, 
-            platformBlock[i].sx, 
-            platformBlock[i].sy, 
-            platformBlock[i].width, 
-            platformBlock[i].height, 
-            platformBlock[i].x, 
-            platformBlock[i].y, 
-            platformBlock[i].width, 
+            platformBlock[i].sprite,
+            platformBlock[i].sx,
+            platformBlock[i].sy,
+            platformBlock[i].width,
+            platformBlock[i].height,
+            platformBlock[i].x,
+            platformBlock[i].y,
+            platformBlock[i].width,
             platformBlock[i].height
         );
     }
     for (var i=0; i < player.lifes; i++) {
         ctx.drawImage(player.sprite, 318, 0, 44.5, 65, i * 30, 0, 29.667, 43.333);
     }
-    
+
     for (var i=0; i < creature.length; i++) {
         ctx.drawImage(
-            creature[i].sprite, 
-            creature[i].sx, 
-            creature[i].sy, 
-            creature[i].width, 
-            creature[i].height, 
-            creature[i].x, 
-            creature[i].y, 
-            creature[i].width, 
+            creature[i].sprite,
+            creature[i].sx,
+            creature[i].sy,
+            creature[i].width,
+            creature[i].height,
+            creature[i].x,
+            creature[i].y,
+            creature[i].width,
             creature[i].height
         );
     }
-    
+
     for (var i=0; i < flying_creature.length; i++) {
         ctx.drawImage(
-            flying_creature[i].sprite, 
-            flying_creature[i].sx, 
-            flying_creature[i].sy, 
-            flying_creature[i].width, 
-            flying_creature[i].height, 
-            flying_creature[i].x, 
+            flying_creature[i].sprite,
+            flying_creature[i].sx,
+            flying_creature[i].sy,
+            flying_creature[i].width,
+            flying_creature[i].height,
+            flying_creature[i].x,
             flying_creature[i].y,
-            flying_creature[i].width, 
+            flying_creature[i].width,
             flying_creature[i].height
         );
     }
-    
+
     //the context drawn the las will always be in upfront position in CANVAS
     ctx.drawImage(player.sprite, player.sx, player.sy, player.width, player.height, player.x, player.y, player.width, player.height);
 }
     // -------------------- EVENT LISTENERS -------------------
-    
+
 document.body.addEventListener("keydown", function(e) {
     keys[e.keyCode] = true;
 });
- 
+
 document.body.addEventListener("keyup", function(e) {
     keys[e.keyCode] = false;
 });

@@ -2,7 +2,7 @@ body {
     background: #222;
 }
 .canvas-wrapper {
-    
+
 }
 #canvas {
     display: block;
@@ -31,10 +31,20 @@ body {
     border: 1px solid white;
     text-align: center;
 }
+.canvas-txt h2 {
+  margin: 0 auto;
+  /*width: 200px;*/
+  background: green;
+  border: 1px solid white;
+  text-align: center;
+}
 .canvas-txt p:hover {
     background: rgba(75,119,190,1.000);
 }
 .canvas-txt p.restart {
+    display: none;
+}
+.canvas-txt h2.level_finished {
     display: none;
 }
 .canvas-txt p.game-over {

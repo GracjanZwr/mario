@@ -52,12 +52,12 @@ Player.prototype.jumpAttack = function jumpAttack() {
     soundJump.play();
 }
 Player.prototype.run = function run() {
-    
+
     // Changing Sprites
     for (var i=0; i < platformBlock.length; i++) {
         // if player touch the ground
         if ( !player.jumps ) {
-            
+
             if (player.sx == 0) {
                     player.sx = player.width;
             }
@@ -91,4 +91,7 @@ Player.prototype.die = function die() {
     if (this.lifes < 0) {
         $('.game-over').slideDown();
     }
+}
+Player.prototype.level_finished = function level_finished() {
+  $('.level_finished').slideDown();
 }

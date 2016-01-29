@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/LocalBusiness">
 <head lang='en'>
-    
+
     <meta charset='UTF-8'>
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
     <title>Banana Development | Multi column layout</title>
-    
 
-    
+
+
     <link rel='stylesheet' type='text/css' href='css/style.css'>
 </head>
 <body>
-    
+
     <div>
-        <canvas id = 'canvas' width="1024" height="600"></canvas>
-        <div class='canvas-txt'>
-            <p class ='start'>START THE GAME</p>
-            <p class ='restart'>TRY AGAIN</p>
-            <p class ='game-over'>GAME OVER</p>
-        </div>
+      <canvas id = 'canvas' width="1024" height="600"></canvas>
+      <div class='canvas-txt'>
+          <p class ='start'>START THE GAME</p>
+          <p class ='restart'>TRY AGAIN</p>
+          <p class ='game-over'>GAME OVER</p>
+          <h2 class='level_finished'>Level 1 Finished!!! Congratulations ;) <br> New levels come soon.</h2>
+      </div>
     </div>
-    
+
     <div style = 'border: 1px solid red; padding 10px; display: inline' onclick='soundBackground.pause(); soundBackground.currentTime = 0;'>Music Stop</div>
     <div style = 'border: 1px solid blue; padding 10px;display: inline' onclick='soundBackground.play()'>Music PLay</div>
     <footer>
@@ -33,4 +34,3 @@
     </footer>
 </body>
 </html>
-    
